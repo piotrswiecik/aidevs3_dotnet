@@ -30,7 +30,11 @@ class Program
         });
         
         var commandS01E02 = new Command("s01e02");
-        commandS01E02.SetHandler(() => {});
+        commandS01E02.SetHandler(async () =>
+        {
+            var handler = new S01E02Handler(serviceProvider);
+            await handler.HandleAsync();
+        });
         
         var commandS01E03 = new Command("s01e03");
         commandS01E03.SetHandler(() => {});
