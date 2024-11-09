@@ -56,7 +56,7 @@ public class S01E01Handler(IServiceProvider serviceProvider)
     
     private async Task<string> ExtractQuestion(string content)
     {
-        const string systemPrompt = $"""
+        const string systemPrompt = """
                                      Parse the provided website content and extract a question.
                                      There is only one question in the content.
                                      The question should be a single sentence.
@@ -68,7 +68,7 @@ public class S01E01Handler(IServiceProvider serviceProvider)
 
     private async Task<string> AnswerQuestion(string question)
     {
-        const string systemPrompt = $"""
+        const string systemPrompt = """
                                      Answer the question. The answer is a single integer number.
                                      Provide the answer only, without any other text, numbers, or characters.
                                      If you cannot answer the question, return 0.
