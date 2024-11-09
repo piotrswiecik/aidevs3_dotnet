@@ -15,7 +15,6 @@ class Program
         ConfigureServices(services);
         IServiceProvider serviceProvider = services.BuildServiceProvider();
         
-        var key = serviceProvider.GetRequiredService<IConfiguration>()["OpenAI:ApiKey"];
         
         var rootCmd = new RootCommand("ai-devs3");
         rootCmd.SetHandler(() =>
