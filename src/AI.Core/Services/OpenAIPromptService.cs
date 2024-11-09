@@ -18,6 +18,14 @@ public class OpenAiPromptService : IPromptService
     
     public async Task<string> CompletePromptAsync(string userPrompt, string? systemPrompt)
     {
-        throw new NotImplementedException();
+        SystemChatMessage systemChatMessage = new(systemPrompt ?? "");
+        UserChatMessage userChatMessage = new(userPrompt);
+        var response = await Client.CompleteChatAsync([systemChatMessage, userChatMessage]);
+        return response.Value.Content[0].Text;
+    }
+    
+    public async Task<string> CompletePromptAsync(string userPrompt)
+    {
+        return await CompletePromptAsync(userPrompt, null);
     }
 }
