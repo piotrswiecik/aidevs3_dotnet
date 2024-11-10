@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.Core", "src\AI.Core\AI.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.CLI", "src\AI.CLI\AI.CLI.csproj", "{C050EEE6-87A1-4D78-A0AF-9F16202805AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.Kernel", "src\AI.Kernel\AI.Kernel.csproj", "{3269DDF6-6E11-4668-B415-A1B4EBB1E0BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.KernelTest", "src\AI.KernelTest\AI.KernelTest.csproj", "{3269DDF6-6E11-4668-B415-A1B4EBB1E0BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

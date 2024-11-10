@@ -63,6 +63,8 @@ public class S01E01Handler(IServiceProvider serviceProvider)
                                      If there is no question, return an empty string.
                                      """;
         var userPrompt = $"Website content: {content}";
+        
+        // TODO: implement this logic via Semantic Kernel
         return await PromptService.CompletePromptAsync(userPrompt, systemPrompt);
     }
 
@@ -74,6 +76,8 @@ public class S01E01Handler(IServiceProvider serviceProvider)
                                      If you cannot answer the question, return 0.
                                      """;
         var userPrompt = $"Question: {question}";
+        
+        // TODO: implement this logic via Semantic Kernel
         return await PromptService.CompletePromptAsync(userPrompt, systemPrompt);
     }
 }
