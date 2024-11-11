@@ -20,7 +20,7 @@ builder.Services.AddTransient<Kernel>();
 // rate limiter for OpenAI
 builder.Services.AddRateLimiter(_ => _.AddFixedWindowLimiter(policyName: "OpenAI.Fixed", options =>
 {
-    options.PermitLimit = 1;
+    options.PermitLimit = 5;
     options.Window = TimeSpan.FromSeconds(30);
     options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
     options.QueueLimit = 5;
