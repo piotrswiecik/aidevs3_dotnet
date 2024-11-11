@@ -1,4 +1,5 @@
 using System.Threading.RateLimiting;
+using AI.External;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
@@ -34,16 +35,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseBasicAuth(); // Custom middleware for HTTP Basic Auth
 app.UseRateLimiter();
 
+    
 // Using minimal APIs
 app.MapPost("/chat", async ([FromBody] ChatRequest request, IServiceProvider provider) =>
     {
         var kernel = provider.GetRequiredService<Kernel>();
         var client = kernel.GetRequiredService<IChatCompletionService>();
-        var res = await client.GetChatMessageContentsAsync(
-            [new ChatMessageContent(AuthorRole.User, request.Message)]);
-        return new ChatResponse() { Messages = res.Select(x => x.Content).ToArray() };
+
+        return "test";
+        // var res = await client.GetChatMessageContentsAsync(
+        //     [new ChatMessageContent(AuthorRole.User, request.Message)]);
+        // return new ChatResponse() { Messages = res.Select(x => x.Content).ToArray() };
     })
     .RequireRateLimiting("OpenAI.Fixed")
     .WithName("Chat with LLM")
