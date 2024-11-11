@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.CLI", "src\AI.CLI\AI.CLI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.KernelTest", "src\AI.KernelTest\AI.KernelTest.csproj", "{3269DDF6-6E11-4668-B415-A1B4EBB1E0BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.External", "src\AI.External\AI.External.csproj", "{E1468B05-4D10-4689-8AE7-44E5E01C7CDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{3269DDF6-6E11-4668-B415-A1B4EBB1E0BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3269DDF6-6E11-4668-B415-A1B4EBB1E0BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3269DDF6-6E11-4668-B415-A1B4EBB1E0BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1468B05-4D10-4689-8AE7-44E5E01C7CDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1468B05-4D10-4689-8AE7-44E5E01C7CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1468B05-4D10-4689-8AE7-44E5E01C7CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1468B05-4D10-4689-8AE7-44E5E01C7CDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

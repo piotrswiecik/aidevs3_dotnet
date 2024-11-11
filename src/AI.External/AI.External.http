@@ -1,0 +1,6 @@
+@AI.External_HostAddress = http://localhost:5083
+
+GET {{AI.External_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
