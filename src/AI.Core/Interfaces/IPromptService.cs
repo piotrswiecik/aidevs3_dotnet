@@ -6,6 +6,7 @@ namespace AI.Core.Interfaces;
 public interface IPromptService
 {
     
+    // TODO: refactor this to use typed prompt param
     /// <summary>
     /// Complete prompt using LLM. Optionally provide system prompt.
     /// </summary>
