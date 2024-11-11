@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.AspNetCore.RateLimiting;
+using Serilog;
+using ILogger = Serilog.ILogger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,12 @@ builder.Services.AddRateLimiter(_ => _.AddFixedWindowLimiter(policyName: "OpenAI
     options.QueueLimit = 5;
 }));
 
+// Serilog
+builder.Host.UseSerilog((ctx, config) =>
+{
+    config.ReadFrom.Configuration(ctx.Configuration);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,11 +47,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseBasicAuth(); // Custom middleware for HTTP Basic Auth
 app.UseRateLimiter();
+app.UseSerilogRequestLogging();
 
     
 // Using minimal APIs
-app.MapPost("/chat", async ([FromBody] ChatRequest request, IServiceProvider provider) =>
+app.MapPost("/chat", async ([FromBody] ChatRequest request, IServiceProvider provider, ILogger logger) =>
     {
+        logger.Information("Chat request: {Message}", request.Message);
         var kernel = provider.GetRequiredService<Kernel>();
         var client = kernel.GetRequiredService<IChatCompletionService>();
 

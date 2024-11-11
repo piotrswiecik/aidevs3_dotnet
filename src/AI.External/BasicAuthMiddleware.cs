@@ -1,12 +1,15 @@
+using ILogger = Serilog.ILogger;
+
 namespace AI.External;
 
 public class BasicAuthMiddleware(RequestDelegate next)
 {
-    public async Task InvokeAsync(HttpContext context, IServiceProvider provider, IConfiguration configuration)
+    public async Task InvokeAsync(HttpContext context, IServiceProvider provider, IConfiguration configuration, ILogger logger)
     {
         var token = context.Request.Headers.Authorization.ToString();
         if (!token.StartsWith("Bearer"))
         {
+            logger.Error("No auth token provided");
             context.Response.StatusCode = 401;
             return;
         }
@@ -14,10 +17,11 @@ public class BasicAuthMiddleware(RequestDelegate next)
         var expectedToken = configuration.GetSection("Auth:Token").Value;
         if (tokenValue != expectedToken)
         {
+            logger.Error("Invalid auth token provided (unauthorized)");
             context.Response.StatusCode = 401;
             return;
         }
-        Console.WriteLine("Auth OK");
+        logger.Information("Auth token OK");
         await next(context);
     }
 }
