@@ -485,3 +485,5 @@ $RECYCLE.BIN/
 
 # secret dev settings
 appsettings.development.json
+
+out/
