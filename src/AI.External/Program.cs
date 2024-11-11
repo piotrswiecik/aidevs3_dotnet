@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile("appsettings.development.json", optional: false, reloadOnChange: true);
+builder.Configuration
+    .AddJsonFile("appsettings.development.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables("AI_");
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
