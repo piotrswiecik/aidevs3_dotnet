@@ -1,7 +1,8 @@
+using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
+using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,15 @@ builder.Services.AddOpenAIChatCompletion(
     modelId: "gpt-4o-mini", apiKey: builder.Configuration.GetSection("OpenAI:ApiKey").Value ?? throw new Exception());
 builder.Services.AddTransient<Kernel>();
 
+// rate limiter for OpenAI
+builder.Services.AddRateLimiter(_ => _.AddFixedWindowLimiter(policyName: "OpenAI.Fixed", options =>
+{
+    options.PermitLimit = 1;
+    options.Window = TimeSpan.FromSeconds(30);
+    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    options.QueueLimit = 5;
+}));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +33,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseRateLimiter();
 
 // Using minimal APIs
 app.MapPost("/chat", async ([FromBody] ChatRequest request, IServiceProvider provider) =>
@@ -33,6 +45,7 @@ app.MapPost("/chat", async ([FromBody] ChatRequest request, IServiceProvider pro
             [new ChatMessageContent(AuthorRole.User, request.Message)]);
         return new ChatResponse() { Messages = res.Select(x => x.Content).ToArray() };
     })
+    .RequireRateLimiting("OpenAI.Fixed")
     .WithName("Chat with LLM")
     .WithOpenApi();
 
