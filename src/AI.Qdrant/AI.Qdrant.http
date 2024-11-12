@@ -1,0 +1,6 @@
+@AI.Qdrant_HostAddress = http://localhost:5085
+
+POST {{AI.Qdrant_HostAddress}}/chat/
+Accept: application/json
+
+###
